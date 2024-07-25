@@ -28,6 +28,7 @@ for i, col in enumerate(categorical_columns):
     sns.countplot(y=col, data=df)
     plt.title(f'Count plot of {col}')
     plt.show()
+![image](https://github.com/user-attachments/assets/61d8c183-8314-48eb-8baa-d40fd6e1af7b)
 
 # Symptom frequency vs. usage symptoms
 usage_symptoms = ['Never', 'Sometimes', 'Frequently', 'Rarely']
