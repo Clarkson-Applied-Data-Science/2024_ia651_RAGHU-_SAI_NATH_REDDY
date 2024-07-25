@@ -1,4 +1,10 @@
 # 2024_ia651_RAGHU-_SAI_NATH_REDDY
+# **Mobile Usage and Health Impact Analysis**
+---
+## objective :
+The primary goal is to investigate the relationship between students' mobile phone usage and their academic performance, health, and overall well-being. We aim to identify potential correlations and patterns that can shed light on the impact of mobile phone usage on these factors.
+---
+## Loading Of Packages 
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -6,10 +12,173 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score, roc_curve
-
+---
+## About the Dataset
+# Description 
+The dataset comprises information about students, their mobile phone usage, and its potential impact on their academic performance and health. Each row represents a student, and columns contain attributes such as demographics, mobile phone details, usage patterns, academic indicators, and health-related factors.
+# Origin
+The dataset originate from a survey conducted among students, possibly as part of a research study or educational initiative. 
 # Load the dataset
 df = pd.read_csv('project.csv')
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Names</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Mobile Phone</th>
+      <th>Mobile Operating System</th>
+      <th>Mobile phone use for education</th>
+      <th>Mobile phone activities</th>
+      <th>Helpful for studying</th>
+      <th>Educational Apps</th>
+      <th>Daily usages</th>
+      <th>Performance impact</th>
+      <th>Usage distraction</th>
+      <th>Attention span</th>
+      <th>Useful features</th>
+      <th>Health Risks</th>
+      <th>Beneficial subject</th>
+      <th>Usage symptoms</th>
+      <th>Symptom frequency</th>
+      <th>Health precautions</th>
+      <th>Health rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Ali</td>
+      <td>21-25</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>Android</td>
+      <td>Sometimes</td>
+      <td>Social Media</td>
+      <td>Yes</td>
+      <td>Educational Videos</td>
+      <td>4-6 hours</td>
+      <td>Agree</td>
+      <td>During Exams</td>
+      <td>Yes</td>
+      <td>Camera</td>
+      <td>Yes</td>
+      <td>Accounting</td>
+      <td>Headache</td>
+      <td>Never</td>
+      <td>Using Blue light filter</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bilal</td>
+      <td>21-25</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>Android</td>
+      <td>Sometimes</td>
+      <td>Social Media</td>
+      <td>Yes</td>
+      <td>Educational Videos</td>
+      <td>4-6 hours</td>
+      <td>Neutral</td>
+      <td>During Exams</td>
+      <td>Yes</td>
+      <td>Notes Taking App</td>
+      <td>Yes</td>
+      <td>Browsing Material</td>
+      <td>All of these</td>
+      <td>Sometimes</td>
+      <td>Taking Break during prolonged use</td>
+      <td>Good</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Hammad</td>
+      <td>21-25</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>IOS</td>
+      <td>Sometimes</td>
+      <td>All of these</td>
+      <td>Yes</td>
+      <td>Educational Videos</td>
+      <td>4-6 hours</td>
+      <td>Strongly agree</td>
+      <td>Not Distracting</td>
+      <td>No</td>
+      <td>Camera</td>
+      <td>Yes</td>
+      <td>Browsing Material</td>
+      <td>All of these</td>
+      <td>Sometimes</td>
+      <td>None of Above</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Abdullah</td>
+      <td>21-25</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>Android</td>
+      <td>Frequently</td>
+      <td>All of these</td>
+      <td>Yes</td>
+      <td>Educational Videos</td>
+      <td>2-4 hours</td>
+      <td>Strongly agree</td>
+      <td>During Class Lectures</td>
+      <td>No</td>
+      <td>Internet Access</td>
+      <td>Only Partially</td>
+      <td>Reasarch</td>
+      <td>NaN</td>
+      <td>Never</td>
+      <td>Limiting Screen Time</td>
+      <td>Excellent</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Waqar</td>
+      <td>21-25</td>
+      <td>Male</td>
+      <td>Yes</td>
+      <td>IOS</td>
+      <td>Frequently</td>
+      <td>All of these</td>
+      <td>Yes</td>
+      <td>Educational Videos</td>
+      <td>&gt; 6 hours</td>
+      <td>Agree</td>
+      <td>While Studying</td>
+      <td>Yes</td>
+      <td>Internet Access</td>
+      <td>No</td>
+      <td>Browsing Material</td>
+      <td>Sleep disturbance</td>
+      <td>Sometimes</td>
+      <td>None of Above</td>
+      <td>Excellent</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 # Handle missing values
 df = df.dropna()
 
