@@ -1,7 +1,7 @@
 # 2024_ia651_RAGHU-_SAI_NATH_REDDY
 # **Mobile Usage and Health Impact Analysis**
 ---
-## objective :
+## Objective :
 The primary goal is to investigate the relationship between students' mobile phone usage and their academic performance, health, and overall well-being. We aim to identify potential correlations and patterns that can shed light on the impact of mobile phone usage on these factors.
 ---
 ## Loading Of Packages
@@ -471,13 +471,6 @@ Based on the Chi-square test, there is no evidence to suggest a relationship bet
 ### Overall:
 *The table suggests a potential correlation between certain mobile phone activities and their perceived impact on performance, with "All of these" activities showing the strongest association with a negative impact.
 
-# Visualize the contingency table using a heatmap
-plt.figure(figsize=(10, 6))
-sns.heatmap(contingency_table, annot=True, cmap="YlGnBu", fmt='d')
-plt.title('Contingency Table of Mobile Phone Activities and Performance Impact')
-plt.show()
-![image](https://github.com/user-attachments/assets/5465ae4c-e658-4fad-8321-43162edb2357)
-
 # Encode categorical variables
 label_encoders = {}
 for col in categorical_columns:
@@ -899,23 +892,79 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   background-color: var(--sklearn-color-fitted-level-3);
 }
 </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=42)</pre></div> </div></div></div></div>
-# Predictions and evaluation
-y_pred = model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-conf_matrix = confusion_matrix(y_test, y_pred)
-class_report = classification_report(y_test, y_pred)
-roc_auc = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])
 
-print(f'Accuracy: {accuracy}')
-print(f'Confusion Matrix:\n{conf_matrix}')
-print(f'Classification Report:\n{class_report}')
-print(f'ROC AUC Score: {roc_auc}')
+# Classification
+## Generate predictions
+y_pred = model.predict(X_test)
+#### Assuming y_test contains your true labels
+report = classification_report(y_test, y_pred, zero_division=1)
+#### Assuming y_test contains your true labels
+report = classification_report(y_test, y_pred, zero_division=1)
+print(report)
+
+              precision    recall  f1-score   support
+
+           0       0.27      0.80      0.40         5
+           1       0.00      0.00      0.00         1
+           2       1.00      0.10      0.18        10
+           3       0.50      0.50      0.50         2
+           4       1.00      0.00      0.00         1
+
+    accuracy                           0.32        19
+   macro avg       0.55      0.28      0.22        19
+weighted avg       0.70      0.32      0.25        19
+
+## Classification Report Summary
+* Precision: Measures how accurate positive predictions are.
+* Recall: Measures how many actual positive cases were correctly identified.
+* F1-score: Balances precision and recall.
+* Support: Number of instances in each class.
+
+## Overall Model Performance:
+* Low accuracy: Model has difficulty in correct predictions.
+* Class imbalance: Significant differences in class distribution might affect performance.
+* Focus on improvement: Classes with low precision and recall require attention.
+  
+# Overfitting and underfitting assessment
+train_accuracy = model.score(X_train, y_train)
+test_accuracy = model.score(X_test, y_test)
+print(f'Training Accuracy: {train_accuracy}')
+print(f'Test Accuracy: {test_accuracy}')
+
+### If there's a large gap between training and test accuracy, the model might be overfitting
+if train_accuracy > test_accuracy + 0.1:
+    print("The model might be overfitting. Consider using techniques like cross-validation, pruning, or regularization.")
+elif train_accuracy < test_accuracy:
+    print("The model might be underfitting. Consider using a more complex model or adding more features.")
+
+    
+<img width="839" alt="Screenshot 2024-07-26 at 6 32 06 PM" src="https://github.com/user-attachments/assets/bebbd59a-aa43-441d-a21d-76d31ccb01cf">
+.
+
+## Overfitting Detected
+* Training Accuracy of 1.0 indicates the model perfectly predicts all instances in the training data.
+* Test Accuracy significantly lower suggests the model is not generalizing well to unseen data.
+
+## Potential Solutions:
+* Cross-validation: Evaluate model performance on different subsets of the data to get a more reliable estimate.
+* Pruning: Simplify the model by removing unnecessary components.
+* Regularization: Introduce penalties to the model to prevent overfitting.
 
 # Sample predictions
 sample_predictions = model.predict(X_test[:5])
 print(f'Sample Predictions: {sample_predictions}')
 print(f'Actual Values: {y_test[:5].values}')
-<img width="274" alt="Screenshot 2024-07-25 at 7 10 29 PM" src="https://github.com/user-attachments/assets/c6d8a26f-d48c-41ce-a458-4741180d5fab">
+
+
+<img width="303" alt="Screenshot 2024-07-26 at 6 30 02 PM" src="https://github.com/user-attachments/assets/d1e60201-1af0-4239-b924-5406f885b980">
+
+
+## Model Predictions vs. Actual Values
+* Model Predictions: [3, 0, 0, 0, 1] are the values predicted by the model for the corresponding instances.
+*Actual Values: [41, 2, 23, 2, 57, 0, 97, 0, 0, 0] are the true or correct values for the same instances.
+
+*Discrepancy: There's a significant difference between the predicted and actual values, indicating the model might not be performing well for these specific instances.
+This comparison highlights the model's inaccuracy in predicting the target variable for these particular data points
 
 # Decision Tree
 
@@ -959,5 +1008,4 @@ plt.show()
 # Conclusion
 * The analysis aimed to understand the impact of various factors on performance. Factors such as age, gender, mobile phone usage patterns, health conditions, and study habits were considered.
 
-* Preliminary findings suggest that several factors contribute to performance impact. These include mobile phone activities, daily usage, health conditions, and symptoms. However, a more in-depth analysis, including statistical tests and potentially advanced modeling techniques, is required to establish definitive causal relationships.
-
+* Preliminary findings suggest that several factors contribute to performance impact. These include mobile phone activities, daily usage, health conditions, and symptoms. 
