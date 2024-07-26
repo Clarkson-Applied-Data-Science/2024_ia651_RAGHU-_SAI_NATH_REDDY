@@ -6,13 +6,13 @@ The primary goal is to investigate the relationship between students' mobile pho
 ---
 ## Loading Of Packages
 
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score, roc_curve
+* import pandas as pd
+* import seaborn as sns
+* import matplotlib.pyplot as plt
+* from sklearn.model_selection import train_test_split
+* from sklearn.preprocessing import LabelEncoder
+* from sklearn.ensemble import RandomForestClassifier
+* from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score, roc_curve
 ---
 ## About the Dataset
 # Description 
