@@ -1004,6 +1004,7 @@ plot_tree(model, feature_names=X.columns, class_names=class_names, filled=True)
 plt.title('Decision Tree')
 plt.show()
 ![ Decision_Tree](https://github.com/user-attachments/assets/49b16c29-68c4-4b89-91a1-c77c9e52fed3)
+![ROC CURV](https://github.com/user-attachments/assets/a71dbf5c-03a3-440e-aa51-8f7534360485)
 
 ----
 # Conclusion
