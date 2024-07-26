@@ -1,5 +1,5 @@
 # 2024_ia651_RAGHU-_SAI_NATH_REDDY
-# **Mobile Usage and Health Impact Analysis**
+# **Mobile Usage and Performance impact**
 ---
 ## Objective :
 The primary goal is to investigate the relationship between students' mobile phone usage and their academic performance, health, and overall well-being. We aim to identify potential correlations and patterns that can shed light on the impact of mobile phone usage on these factors.
