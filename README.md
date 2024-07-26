@@ -911,78 +911,53 @@ print(f'Confusion Matrix:\n{conf_matrix}')
 print(f'Classification Report:\n{class_report}')
 print(f'ROC AUC Score: {roc_auc}')
 
-# Plot ROC Curve
-fpr, tpr, _ = roc_curve(y_test, model.predict_proba(X_test)[:, 1])
-plt.figure(figsize=(8, 6))
-plt.plot(fpr, tpr, label='ROC Curve (area = %0.2f)' % roc_auc)
-plt.plot([0, 1], [0, 1], 'k--')
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic (ROC) Curve')
-plt.legend(loc='lower right')
-plt.show()
-![Uploading image.png…]()
-
-# Overfitting and underfitting assessment
-train_accuracy = model.score(X_train, y_train)
-test_accuracy = model.score(X_test, y_test)
-print(f'Training Accuracy: {train_accuracy}')
-print(f'Test Accuracy: {test_accuracy}')
-
-if train_accuracy > test_accuracy + 0.1:
-    print("The model might be overfitting. Consider using techniques like cross-validation, pruning, or regularization.")
-elif train_accuracy < test_accuracy:
-    print("The model might be underfitting. Consider using a more complex model or adding more features.")
-<img width="799" alt="Screenshot 2024-07-25 at 7 09 31 PM" src="https://github.com/user-attachments/assets/7c07758a-04e8-4a7e-a7a1-d2c1f289edae">
-
 # Sample predictions
 sample_predictions = model.predict(X_test[:5])
 print(f'Sample Predictions: {sample_predictions}')
 print(f'Actual Values: {y_test[:5].values}')
 <img width="274" alt="Screenshot 2024-07-25 at 7 10 29 PM" src="https://github.com/user-attachments/assets/c6d8a26f-d48c-41ce-a458-4741180d5fab">
 
-# New or synthesized examples for prediction
-new_data = pd.DataFrame({
-    'Names': ['John Doe', 'Jane Smith'],
-    'Age': [20, 25],
-    'Gender': ['Male', 'Female'],
-    'Mobile Phone': ['Samsung', 'Apple'],
-    'Mobile Operating System': ['Android', 'iOS'],
-    'Mobile phone use for education': ['Yes', 'No'],
-    'Mobile phone activities': ['Games', 'Social Media'],
-    'Helpful for studying': ['Yes', 'No'],
-    'Educational Apps': ['Yes', 'No'],
-    'Daily usages': ['3-4 hours', '1-2 hours'],
-    'Usage distraction': ['Yes', 'No'],
-    'Attention span': ['Good', 'Average'],
-    'Useful features': ['Apps', 'Messaging'],
-    'Health Risks': ['Yes', 'No'],
-    'Beneficial subject': ['Math', 'Science'],
-    'Usage symptoms': ['Headache', 'Eye strain'],
-    'Symptom frequency': ['Frequently', 'Sometimes'],
-    'Health precautions': ['Using Blue light filter', 'Limiting Screen Time'],
-    'Health rating': ['Good', 'Average']
-})
+# Decision Tree
 
-# Encode new data
-for col in categorical_columns:
-    new_data[col] = label_encoders[col].transform(new_data[col])
+data2 = pd.DataFrame(data)
 
-new_predictions = model.predict(new_data.drop('Performance impact', axis=1, errors='ignore'))
-print(f'New Predictions: {new_predictions}')
+### Drop the target column and prepare X and y
+X = data.drop(columns=['Names', 'Performance impact'])
+y = data['Performance impact']
+### Initialize LabelEncoder for categorical columns
+label_encoders = {}
+for column in X.columns:
+    le = LabelEncoder()
+    X[column] = le.fit_transform(X[column])
+    label_encoders[column] = le
 
-# Identifying and mitigating overfitting/underfitting
-if train_accuracy > test_accuracy + 0.1:
-    print("The model might be overfitting. Consider using techniques like cross-validation, pruning, or regularization.")
-elif train_accuracy < test_accuracy:
-    print("The model might be underfitting. Consider using a more complex model or adding more features.")
+### Encode target variable
+le_y = LabelEncoder()
+y = le_y.fit_transform(y)
 
-# Advice for deployment
-print("For deployment, ensure data preprocessing steps are consistent, monitor model performance over time, and regularly update the model with new data. Be cautious of biases in the training data and ensure the model's predictions are fair and unbiased.")
+### Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Precautions
-print("Ensure that the model is used within the context it was trained for. Avoid extrapolation to significantly different populations or conditions. Regularly audit the model's predictions to ensure it continues to perform well in real-world
+### Create and fit the Decision Tree model
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
 
+### Predict probabilities
+y_pred_proba = model.predict_proba(X_test)
 
+### Visualize the decision tree
+plt.figure(figsize=(20,20))
 
+### Convert class names to strings
+class_names = [str(cls) for cls in le_y.classes_]
+plot_tree(model, feature_names=X.columns, class_names=class_names, filled=True)
+
+plt.title('Decision Tree')
+plt.show()
+
+----
+# Conclusion
+* The analysis aimed to understand the impact of various factors on performance. Factors such as age, gender, mobile phone usage patterns, health conditions, and study habits were considered.
+
+* Preliminary findings suggest that several factors contribute to performance impact. These include mobile phone activities, daily usage, health conditions, and symptoms. However, a more in-depth analysis, including statistical tests and potentially advanced modeling techniques, is required to establish definitive causal relationships.
 
