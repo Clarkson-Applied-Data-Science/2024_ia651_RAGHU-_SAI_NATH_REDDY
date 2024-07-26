@@ -261,7 +261,7 @@ for i, col in enumerate(categorical_columns):
 ## The chart shows the frequency of different mobile phone activities.
 "All of these" is the most common activity.
 Other activities like messaging, social media, and web browsing are less frequent.
-(all of these mens :- Messaging,Social Media,web-browsing)
+(all of these means :- Messaging,Social Media,web-browsing)
 
 ![image](https://github.com/user-attachments/assets/95d2865d-a594-4943-8580-b06de257efc3)
 ## The bar plot shows responses to whether an activity is helpful for studying:
