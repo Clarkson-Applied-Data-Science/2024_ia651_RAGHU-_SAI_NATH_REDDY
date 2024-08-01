@@ -273,11 +273,6 @@ We performed hyperparameter tuning on a Random Forest Classifier using GridSearc
 * min_samples_split: [2, 5, 10]
 * min_samples_leaf: [1, 2, 4]
 
-### Procedure:
-
-* We used a 5-fold cross-validation approach to evaluate the performance of each parameter combination.
-* GridSearchCV was set to utilize all available CPU cores for efficiency (n_jobs=-1).
-* Verbose logging was enabled to track the progress of the grid search.
 
 ### Best Parameters:
 After evaluating 540 different combinations, the best parameters found were:
