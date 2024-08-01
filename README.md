@@ -377,12 +377,7 @@ for synp in usage_symptoms:
 ![image](https://github.com/user-attachments/assets/80d8f894-6774-4f5c-8170-993454f9110a)
 
 ## Violin Plot Analysis (Symptom frequency with respect to usage)
- 
-### Observations:
-* The plot visualizes the distribution of usage symptoms across different symptom frequencies.
-* The width of the violin plots indicates the density of data points.
-* The central white line within each violin represents the median value.
-* The black box within each violin encompasses the interquartile range (IQR).
+
 ### Interpretations:
 * Individuals who experience symptoms "frequently" tend to report a wider range of symptoms compared to those who experience symptoms "rarely" or "never."
 * The symptom "All of these" is more prevalent among those who experience symptoms "frequently."
@@ -409,12 +404,7 @@ for i, prep in enumerate(precautions):
     ax.set_xticks(range(len(usage.index)))
     ax.set_xticklabels(usage.index, rotation=0)
 ![image](https://github.com/user-attachments/assets/0328fde6-f001-49bd-9f3f-742524671c7d)
-## Image Analysis: Health Precautions vs. Daily Usages
-### Observations:
-* The charts visualize the relationship between different health precautions and their corresponding daily usage patterns.
-* Each chart represents a specific health precaution.
-* The x-axis displays various usage symptoms, while the y-axis indicates the frequency of those symptoms.
-* The height of each bar represents the number of respondents experiencing a particular symptom for a given health precaution.
+## Image Analysis: Health Precautions vs. Daily Usages.
 
 ### General Trends:
 * Regardless of the health precaution, "All of these" symptoms tend to be more prevalent.
@@ -510,16 +500,6 @@ print(report)
    macro avg       0.55      0.28      0.22        19
 weighted avg       0.70      0.32      0.25        19
 
-## Classification Report Summary
-* Precision: Measures how accurate positive predictions are.
-* Recall: Measures how many actual positive cases were correctly identified.
-* F1-score: Balances precision and recall.
-* Support: Number of instances in each class.
-
-## Overall Model Performance:
-* Low accuracy: Model has difficulty in correct predictions.
-* Class imbalance: Significant differences in class distribution might affect performance.
-* Focus on improvement: Classes with low precision and recall require attention.
   
 # Overfitting and underfitting assessment
 train_accuracy = model.score(X_train, y_train)
@@ -559,8 +539,7 @@ print(f'Actual Values: {y_test[:5].values}')
 * Model Predictions: [3, 0, 0, 0, 1] are the values predicted by the model for the corresponding instances.
 *Actual Values: [41, 2, 23, 2, 57, 0, 97, 0, 0, 0] are the true or correct values for the same instances.
 
-*Discrepancy: There's a significant difference between the predicted and actual values, indicating the model might not be performing well for these specific instances.
-This comparison highlights the model's inaccuracy in predicting the target variable for these particular data points
+
 
 # Decision Tree
 
